@@ -14,6 +14,5 @@ public class CoinManager : MonoBehaviour {
 		return PuntosTotales;
 	}
 	void Update () {
-		Debug.Log (string.Format ("PuntosTotales = ", PuntosTotales));
 	}
 }

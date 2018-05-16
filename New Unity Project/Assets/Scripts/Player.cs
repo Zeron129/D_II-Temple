@@ -14,7 +14,7 @@ public class Player : MonoBehaviour {
 	}
 
 	[SerializeField] float speed;
-	[SerializeField] float vida;
+	//[SerializeField] float vida;
 	[SerializeField] MouseInput MouseControl;
 
 	private MoveController m_MoveController;
@@ -26,7 +26,18 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	InputController playerInput;
+   /* private CharacterController m_characterControler;
+    public CharacterController characterController
+    {
+        get
+        {
+            if (m_characterControler == null)
+                m_characterControler = GetComponent<CharacterController>();
+            return m_characterControler;
+        }
+    }*/
+
+    InputController playerInput;
 	Vector2 mouseInput;
 	CoinManager Collectibles;
 
@@ -39,16 +50,17 @@ public class Player : MonoBehaviour {
 	}
 
 	void Update () {
-		//Movement and Rotation
-		Vector2 direction = new Vector2 (playerInput.Vertical * speed, playerInput.Horizontal * speed);
-		MoveController.Move(direction);
+        //Movement and Rotation
+        CharacterController m_characterControler = GetComponent<CharacterController>();
+        Vector3 direction = new Vector3 (playerInput.Horizontal * speed, 0, playerInput.Vertical * speed);
+		MoveController.Move(m_characterControler, direction);
 
 		mouseInput.x = Mathf.Lerp (mouseInput.x, playerInput.MouseInput.x, 1f / MouseControl.Damping.x);
 		transform.Rotate (Vector3.up * mouseInput.x * MouseControl.Sensitivity.x);
 	}
 
 	void OnTriggerEnter(Collider Other){
-		if (Other.tag == "Reward") {
+		if (Other.gameObject.tag == "Reward") {
 			Collectibles.SumarPuntos (Other.gameObject.GetComponent<coin>());
 			Destroy (Other.gameObject);
 		}
