@@ -15,6 +15,7 @@ public class ThirdPersonCamara : MonoBehaviour {
 
 	void HandleOnLocalPlayerJoined (Player player) {
 		localPlayer = player;
+		Debug.Log ("HandleOnLocalPlayerJoined");
 		cameraLookTarget = localPlayer.transform.Find ("cameraLookTarget");
 
 		if (cameraLookTarget == null) {		//en caso de que no encuentre el objeto cameraLookTarget

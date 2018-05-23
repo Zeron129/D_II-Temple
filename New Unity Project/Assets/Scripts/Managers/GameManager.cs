@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager {
 	public event System.Action<Player> OnLocalPlayerJoined;
+
+
 	private GameObject gameObject;
 
 	private static GameManager m_Instance;

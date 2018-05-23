@@ -2581,7 +2581,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  vida: 0
   MouseControl:
     Damping: {x: 3, y: 0}
     Sensitivity: {x: 5, y: 0}
