@@ -13,9 +13,12 @@ public class Player : MonoBehaviour {
 		public Vector2 Sensitivity;
 	}
 
-	[SerializeField] float speed;
-	//[SerializeField] float vida;
-	[SerializeField] MouseInput MouseControl;
+	[SerializeField] float baseSpeed;
+	[SerializeField] float sprintSpeed;
+    //[SerializeField] float vida;
+    [SerializeField] MouseInput MouseControl;
+
+    private float speed;
 
 	private MoveController m_MoveController;
 	public MoveController MoveController {
@@ -45,11 +48,19 @@ public class Player : MonoBehaviour {
 		playerInput = GameManager.Instance.InputControler;
 		Collectibles = GameManager.Instance.coinManager;
 		GameManager.Instance.LocalPlayer = this;
-		if (speed == 0)
-			speed = 5;
-	}
+		/*if (baseSpeed == 0)
+            baseSpeed = 5;
+        speed = baseSpeed;*/
+
+    }
 
 	void Update () {
+        // Sprint
+        if (playerInput.sprint == true)
+            speed = sprintSpeed;
+        else
+            speed = baseSpeed;
+
         //Movement and Rotation
         CharacterController m_characterControler = GetComponent<CharacterController>();
         Vector3 direction = new Vector3 (playerInput.Horizontal * speed, 0, playerInput.Vertical * speed);
@@ -57,7 +68,16 @@ public class Player : MonoBehaviour {
 
 		mouseInput.x = Mathf.Lerp (mouseInput.x, playerInput.MouseInput.x, 1f / MouseControl.Damping.x);
 		transform.Rotate (Vector3.up * mouseInput.x * MouseControl.Sensitivity.x);
-	}
+
+        //Animation
+        Animator m_animator = GetComponent<Animator>();
+        m_animator.SetFloat("InputVertical", playerInput.Vertical);
+        m_animator.SetFloat("InputHorizontal", playerInput.Horizontal);
+        if (playerInput.sprint == true)
+            m_animator.SetBool("Sprint", true);
+        else
+            m_animator.SetBool("Sprint", false);
+    }
 
 	void OnTriggerEnter(Collider Other){
 		if (Other.gameObject.tag == "Reward") {

@@ -2856,6 +2856,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114686681264302380, guid: 9a4e50f1ec4b78a4f8589516f3bb30bf,
+        type: 2}
+      propertyPath: baseSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114686681264302380, guid: 9a4e50f1ec4b78a4f8589516f3bb30bf,
+        type: 2}
+      propertyPath: sprintSpeed
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 65990093070240734, guid: 9a4e50f1ec4b78a4f8589516f3bb30bf, type: 2}
     - {fileID: 136663915137121378, guid: 9a4e50f1ec4b78a4f8589516f3bb30bf, type: 2}

@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 54404054217195472}
   - component: {fileID: 136663915137121378}
   - component: {fileID: 65990093070240734}
+  - component: {fileID: 95397056887946962}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2552,6 +2553,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.35, y: 0.1, z: 0.35}
   m_Center: {x: 0, y: 0.05, z: 0}
+--- !u!95 &95397056887946962
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1011666582412480}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6aeadd124fbb8d24bb304d40ee6e49e9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95541825740700622
 Animator:
   serializedVersion: 3
@@ -2580,7 +2598,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fcc7c980ed86f04684c3a0cef6b9ac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  baseSpeed: 0
+  sprintSpeed: 0
   MouseControl:
     Damping: {x: 3, y: 0}
     Sensitivity: {x: 5, y: 0}
