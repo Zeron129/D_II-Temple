@@ -6,6 +6,7 @@ public class InputController : MonoBehaviour {
 
 	public float Vertical;
 	public float Horizontal;
+	public float Jump;
 	public Vector2 MouseInput;
 	public bool sprint;
 

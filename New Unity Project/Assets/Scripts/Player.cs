@@ -15,10 +15,13 @@ public class Player : MonoBehaviour {
 
 	[SerializeField] float baseSpeed;
 	[SerializeField] float sprintSpeed;
+	[SerializeField] float jumpForce;
+	[SerializeField] float gravity;
     //[SerializeField] float vida;
     [SerializeField] MouseInput MouseControl;
 
-    private float speed;
+	private float speed;
+	private float verticalVelocity;
 
 	private MoveController m_MoveController;
 	public MoveController MoveController {
@@ -55,17 +58,31 @@ public class Player : MonoBehaviour {
     }
 
 	void Update () {
+		CharacterController m_characterControler = GetComponent<CharacterController>();
+
+		//Jump
+		if (m_characterControler.isGrounded) {
+			verticalVelocity = -gravity * Time.deltaTime;
+			if (Input.GetButton ("Jump")) {
+				verticalVelocity = jumpForce;
+			}
+		} else {
+			verticalVelocity -= gravity * Time.deltaTime;
+		}
+
         // Sprint
         if (playerInput.sprint == true)
             speed = sprintSpeed;
         else
             speed = baseSpeed;
 
-        //Movement and Rotation
-        CharacterController m_characterControler = GetComponent<CharacterController>();
-        Vector3 direction = new Vector3 (playerInput.Horizontal * speed, 0, playerInput.Vertical * speed);
-		MoveController.Move(m_characterControler, direction);
-
+		//Movement and Rotation
+		Vector3 direction = new Vector3 (playerInput.Horizontal * speed, verticalVelocity, playerInput.Vertical * speed);
+		//MoveController.Move(m_characterControler, direction, jumpForce, gravity);
+		direction = transform.TransformDirection(direction);
+		m_characterControler.Move(direction * Time.deltaTime);
+		
+		//Rotation
 		mouseInput.x = Mathf.Lerp (mouseInput.x, playerInput.MouseInput.x, 1f / MouseControl.Damping.x);
 		transform.Rotate (Vector3.up * mouseInput.x * MouseControl.Sensitivity.x);
 
