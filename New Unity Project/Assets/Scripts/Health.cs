@@ -8,6 +8,7 @@ public class Health : Destructible {
 	{
 		base.Die ();
 		print ("we Died");
+        Destroy(this);
 	}
 	public override void TakeDamage (float amount)
 	{

@@ -6,8 +6,9 @@ public class Torret : MonoBehaviour {
 
 	[SerializeField] Shooter Gun;
 	[SerializeField] GameObject LookTarget;
+	[SerializeField] Vector3 offset;
 
-	Transform target;
+    Transform target;
 
 	void Start () {
 	}
@@ -39,7 +40,9 @@ public class Torret : MonoBehaviour {
 
 	void OnTriggerStay(Collider other){
 		target = other.gameObject.transform;
-	}
+        //target.position.y += offset;
+
+    }
 	void OnTriggerExit(Collider other){
 		target = null;
 	}
