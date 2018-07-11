@@ -17,7 +17,7 @@ public class Player : MonoBehaviour {
 	[SerializeField] float sprintSpeed;
 	[SerializeField] float jumpForce;
 	[SerializeField] float gravity;
-    //[SerializeField] float vida;
+	[SerializeField] Shooter Gun;
     [SerializeField] MouseInput MouseControl;
 
 	private float speed;
@@ -70,6 +70,11 @@ public class Player : MonoBehaviour {
 			verticalVelocity -= gravity * Time.deltaTime;
 		}
 
+		//Shoot
+		if(GameManager.Instance.InputControler.Fire1){
+			Gun.fire ();
+		}
+
         // Sprint
         if (playerInput.sprint == true)
             speed = sprintSpeed;
@@ -78,7 +83,6 @@ public class Player : MonoBehaviour {
 
 		//Movement and Rotation
 		Vector3 direction = new Vector3 (playerInput.Horizontal * speed, verticalVelocity, playerInput.Vertical * speed);
-		//MoveController.Move(m_characterControler, direction, jumpForce, gravity);
 		direction = transform.TransformDirection(direction);
 		m_characterControler.Move(direction * Time.deltaTime);
 		
@@ -89,11 +93,14 @@ public class Player : MonoBehaviour {
         //Animation
         Animator m_animator = GetComponent<Animator>();
         m_animator.SetFloat("InputVertical", playerInput.Vertical);
-        m_animator.SetFloat("InputHorizontal", playerInput.Horizontal);
-        if (playerInput.sprint == true)
-            m_animator.SetBool("Sprint", true);
-        else
-            m_animator.SetBool("Sprint", false);
+		m_animator.SetFloat("InputHorizontal", playerInput.Horizontal);
+		m_animator.SetFloat("Y Velocity", verticalVelocity);
+
+        if (playerInput.sprint == true) m_animator.SetBool("Sprint", true);
+        else m_animator.SetBool("Sprint", false);
+
+		if (m_characterControler.isGrounded == true) m_animator.SetBool("Is Grounded", true);
+		else m_animator.SetBool("Is Grounded", false);
     }
 
 	void OnTriggerEnter(Collider Other){
